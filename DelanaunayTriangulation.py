@@ -16,13 +16,11 @@ class simpleTriangulation(object):
         self.triangulateCloud(draw, bc, c)
 
     def triangulateConvHull(self, draw, cv):
-        ''' triangulate convex hull '''
         for i in range(2, len(cv.polygon)):
             draw.line([cv.polygon[0], cv.polygon[i]], fill="black")
             self.triangles.append([cv.polygon[0], cv.polygon[i], cv.polygon[i - 1]])
 
     def triangulateCloud(self, draw, bc, c):
-        ''' triangulate the point set except convex hull '''
         for i in range(len(c.cloud)):
             tri = self.isPointInTriangle(c.cloud[i], bc)
             if tri != False:
@@ -35,7 +33,6 @@ class simpleTriangulation(object):
                 self.triangles.remove(tri)
 
     def isPointInTriangle(self, point, bc):
-        ''' returns False if point is not inside anyone triangle'''
         ''' if not, returns the triangle that is inside '''
         flag = False
         i = 0
@@ -72,7 +69,6 @@ if __name__ == '__main__':
     cv = convex_hull.ConvHull(draw, c.cloud)
 
     st = simpleTriangulation(draw, c, cv)
-    #dt = delaunay_check.DelaunayCheck(draw, st.triangles, c.cloud, cv.polygon)
 
     im.save("new.png")
 
