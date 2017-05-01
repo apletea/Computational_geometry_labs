@@ -3,10 +3,11 @@ import math
 from graphics import *
 
 length = 30
-mindist = 700
+mindist = 100000
 ansa = Point(0,0)
 ansb = Point(700,700)
 a = []
+
 
 def cmp_x(a,b):
     return a.x < b.x or a.x == b.x and a.y < b.y
@@ -47,17 +48,46 @@ def initWin():
     return GraphWin("Where is Point",700, 700)
 
 def upd_ans(a,b):
-    dist = math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
+    dist = math.sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y))
+    print(dist)
     global mindist, ansa, ansb
-    if (dist < mindist):
+    if (dist < mindist and a!=b):
         mindist = dist
         ansa = a
         ansb = b
 
-def merge(start,to,start2,t2,ans, comparator):
+def show():
+    global a
+    for i in a:
+        for j in a:
+            upd_ans(i,j)
 
+def merge(start,to,start2,to2,ans, comparator):
+    i = start
+    j = start2
+    global a
+    while(i < to and j < to2):
+        if (comparator(a[i],a[j])):
+            ans.append(a[i])
+            i+=1
+        else:
+            ans.append(a[j])
+            j+=1
+    if (i == to):
+        while(j < to2):
+            ans.append(a[j])
+            j+=1
+    else:
+        while(i < to):
+            ans.append(a[i])
+            i+=1
+    return ans
 
-def copy(ans,)
+def copy(t,end,start2):
+    global a
+    for i in (0,end-2):
+        a[start2+i] = t[i]
+
 
 def rec(l,r):
     global a
@@ -65,15 +95,16 @@ def rec(l,r):
         for i in (l,r):
             for j in (i+1,r):
                 upd_ans(a[i],a[j])
-    median = (l+r)/2
+                return
+    median = int((l+r)/2)
     medianx = a[median].x
-    rec(l,median),rec(median+1,r)
+    rec(l,median)
+    rec(median+1,r)
     t = []
-    t = merge(l,median+1,median+1,r+1,t,cmp_y)
-    
-
+    t = merge(l,median,median,r,t,cmp_y)
+    copy(t,r-l+1,l)
     tsz = 0
-    for i in (l,r):
+    for i in (l,r-1):
         if (math.fabs(a[i].x-medianx) < mindist):
             j = tsz
             while(j >= 0):
@@ -90,11 +121,14 @@ def main():
     a = init()
     window = initWin()
     a.sort(key = cmp_to_key(cmp_x))
-    rec = (0, length)
+    show()
+    rec(0, length)
     for i in a:
-        i.draw(window)
+        if (not i.canvas):
+          i.draw(window)
     l = Line(ansa,ansb)
     l.draw(window)
+    print(l)
     print('hi')
     a = input()
 main()
