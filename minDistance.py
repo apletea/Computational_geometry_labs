@@ -69,8 +69,8 @@ def rec(l,r):
     medianx = a[median].x
     rec(l,median),rec(median+1,r)
     t = []
-    t = merge(a+l,a+m+1,a+m+1,a+r+1)
-
+    t = merge(l,median+1,median+1,r+1,t,cmp_y)
+    
 
     tsz = 0
     for i in (l,r):
