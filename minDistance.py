@@ -35,7 +35,7 @@ def cmp_to_key(comparator):
 
 
 def newPoint():
-    return Point(random.randint(350,500), random.randint(350,500))
+    return Point(random.randint(150,600), random.randint(150,600))
 
 def init():
     points = []
@@ -54,14 +54,47 @@ def upd_ans(a,b):
         ansa = a
         ansb = b
 
+def merge(start,to,start2,t2,ans, comparator):
+
+
+def copy(ans,)
+
 def rec(l,r):
+    global a
+    if (r - l <= 3):
+        for i in (l,r):
+            for j in (i+1,r):
+                upd_ans(a[i],a[j])
+    median = (l+r)/2
+    medianx = a[median].x
+    rec(l,median),rec(median+1,r)
+    t = []
+    t = merge(a+l,a+m+1,a+m+1,a+r+1)
+
+
+    tsz = 0
+    for i in (l,r):
+        if (math.fabs(a[i].x-medianx) < mindist):
+            j = tsz
+            while(j >= 0):
+                if (a[i].y-t[j].y >= mindist):
+                    break
+                upd_ans(a[i],t[j])
+                j-=1
+            tsz+=1
+            t[tsz] =a[i]
     print('happens')
 
 def main():
     global a
     a = init()
+    window = initWin()
     a.sort(key = cmp_to_key(cmp_x))
     rec = (0, length)
-    
+    for i in a:
+        i.draw(window)
+    l = Line(ansa,ansb)
+    l.draw(window)
     print('hi')
+    a = input()
 main()
