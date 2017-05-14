@@ -33,7 +33,6 @@ class simpleTriangulation(object):
                 self.triangles.remove(tri)
 
     def isPointInTriangle(self, point, bc):
-        ''' if not, returns the triangle that is inside '''
         flag = False
         i = 0
         while i < len(self.triangles):
@@ -45,17 +44,14 @@ class simpleTriangulation(object):
 
             if bar_c != None:
                 if 0.0 < bar_c[0] < 1.0 and 0.0 < bar_c[1] < 1.0 and 0.0 < bar_c[2] < 1.0:
-                    ''' point is inside the triangle: self.triangles[i] '''
                     flag = True
                     tri = self.triangles[i]
                     i = len(self.triangles)
             i = i + 1
 
         if flag == True:
-            ''' return the coordinates of the triangle '''
             return tri
         else:
-            ''' return false '''
             return flag
 
 

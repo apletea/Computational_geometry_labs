@@ -115,7 +115,6 @@ def rec(l,r):
                 j-=1
             tsz+=1
             t[tsz] =a[i]
-    print('happens')
 
 def main():
     global a

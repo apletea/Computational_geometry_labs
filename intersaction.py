@@ -47,6 +47,9 @@ def main():
     set2 = createHull.draw(set2)
     window = initWin()
     drawHulls(set1,set2,window)
+    polygon = Polygon(set1)
+    polygon.setFill('red')
+    polygon.draw(window)
     a = input()
 main()
 
