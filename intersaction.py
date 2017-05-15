@@ -39,6 +39,17 @@ def drawHulls(set1,set2,win):
 
 
 
+def aims_at(a,b,aclass,crossType):
+    va = Point
+
+def convex_polygon_intersaction(P,Q):
+    ans = []
+
+
+
+    ans = Polygon(ans)
+    return ans
+
 
 def main():
     set1 = init()
@@ -47,7 +58,7 @@ def main():
     set2 = createHull.draw(set2)
     window = initWin()
     drawHulls(set1,set2,window)
-    polygon = Polygon(set1)
+    polygon = convex_polygon_intersaction(set1,set2)
     polygon.setFill('red')
     polygon.draw(window)
     a = input()
