@@ -74,6 +74,14 @@ def distance(p1,p2):
 
 def removebetween(p1,p2,set):
     print('remove')
+    p1i = 0
+    p2i = 0
+    for i in (0,len(set)-1):
+        if (p1 == set[i]):
+            p1i = i
+        if (p2 == set[i]):
+            p2i = i
+    set[p1i:p2i]
 
 def add_point_to_set(p,set,win):
     max1 = 0
