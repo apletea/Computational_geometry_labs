@@ -1,6 +1,7 @@
 import random
+import GrahamAlg as sort
 from graphics import *
-
+import math
 
 min_x = 700
 max_x = 0
@@ -8,13 +9,13 @@ min_y = 700
 max_y = 0
 
 def newPoint():
-    return Point(random.randint(350,500), random.randint(350,500))
+    return Point(random.randint(100,500), random.randint(100,500))
 
 def initWin():
     return GraphWin("Where is Point",700, 700)
 
 def is_right(a,b,c):
-    return ((b.x-a.x)*(c.y-a.y) - (b.y-a.y)*(c.x-a.x)) < 0
+    return ((b.x-a.x)*(c.y-a.y) - (b.y-a.y)*(c.x-a.x))
 
 def is_in_line(a,b,c):
     return ((b.x-a.x)*(c.y-a.y) - (b.y-a.y)*(c.x-a.x)) == 0
@@ -46,23 +47,72 @@ def first3(set):
     set.append(p)
     find_max_min(set)
 
-def
+def intersect(A,B,C,D):
+  return is_right(A,B,C)*is_right(A,B,D)<=0 and is_right(C,D,A)*is_right(C,D,B)<0
 
+def point_loc(P,A):
+    n = len(P)
+    if is_right(P[0],P[1],A) < 0 or is_right(P[0],P[n-1],A) > 0:
+        return False
+    p,r = 1, n -1
+    while r - p > 1:
+        q = int((p + r) / 2)
+        if is_right(P[0], P[q], A) < 0:
+            r = q
+        else:
+            p = q
+    return not intersect(P[0], A, P[p], P[r])
+
+def is_intersect_convex(p1,p2,set):
+    for i in range(0,len(set)-1):
+        if (intersect(p1,p2,set[i],set[i+1])):
+            return True
+    return False
+
+def distance(p1,p2):
+    return math.sqrt((p1.x-p2.x)**2+(p1.y-p2.y)**2)
+
+def removebetween(p1,p2,set):
+    print('remove')
+
+def add_point_to_set(p,set,win):
+    max1 = 0
+    max2 = 0
+    point1 = p
+    point2 = p
+    for point in set:
+        if (distance(p,point) > max1):
+            if (not is_intersect_convex(p,point,set)):
+              point1 = point
+              max1 = distance(p,point)
+    for point in set:
+        if (distance(p,point) > max2):
+            if (not is_intersect_convex(p,point,set) and point1 != point):
+              point2 = point
+              max2 = distance(p,point)
+    set.append(p)
+    removebetween(point1,point2,set)
 
 
 def main():
+    win = initWin()
     set = []
     set.append(newPoint())
     first3(set)
     b= 1
+    polyhon = Polygon(set)
+    polyhon.draw(win)
     while (b==1):
         p = newPoint()
-        if (notInConvex(p2)):
-
-
-
-
-        b = input()
-
+        if (point_loc(set,p)):
+            continue
+        else:
+            add_point_to_set(p,set,win)
+            set = sort.draw(set)
+            polyhon = Polygon(set)
+            polyhon.draw(win)
+            print(polyhon)
+            a = input()
+            continue
 
 main()
