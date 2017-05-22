@@ -84,20 +84,17 @@ def removebetween(p1,p2,set):
     set[p1i:p2i]
 
 def add_point_to_set(p,set,win):
-    max1 = 0
-    max2 = 0
     point1 = p
     point2 = p
-    for point in set:
-        if (distance(p,point) > max1):
-            if (not is_intersect_convex(p,point,set)):
-              point1 = point
-              max1 = distance(p,point)
-    for point in set:
-        if (distance(p,point) > max2):
-            if (not is_intersect_convex(p,point,set) and point1 != point):
-              point2 = point
-              max2 = distance(p,point)
+    j = 0
+    for i in range (1,len(set)):
+        if (is_right(set[i-1],set[i],p)):
+            point1 = set[i-1]
+            j = i
+            break
+    for i in range (j,len(set)):
+        if (not is_right(set[i-1],set[i],p)):
+            point2 = set[i-1]
     set.append(p)
     removebetween(point1,point2,set)
 
