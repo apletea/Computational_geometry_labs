@@ -81,19 +81,25 @@ def removebetween(p1,p2,set):
             p1i = i
         if (p2 == set[i]):
             p2i = i
-    set[p1i:p2i]
+    if (is_right(set[p1i],set[p1i+1],set[len(set)-1])) :
+        set[p1i:p2i]
+    else :
+        set[0:p2i]
+        set[p1i: 0]
 
 def add_point_to_set(p,set,win):
     point1 = p
     point2 = p
     j = 0
+    position = is_right(set[0],set[1],p)
     for i in range (1,len(set)):
-        if (is_right(set[i-1],set[i],p)):
+        if (position == is_right(set[i-1],set[i],p)):
             point1 = set[i-1]
             j = i
+            position = -position
             break
     for i in range (j,len(set)):
-        if (not is_right(set[i-1],set[i],p)):
+        if (position == is_right(set[i-1],set[i],p)):
             point2 = set[i-1]
     set.append(p)
     removebetween(point1,point2,set)
